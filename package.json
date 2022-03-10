@@ -1,0 +1,77 @@
+{
+  "name": "@deepdub/react-ok-tooltip",
+  "version": "0.1.2",
+  "license": "MIT",
+  "author": "Eldad Bercovici",
+  "main": "dist/index.js",
+  "module": "dist/react-ok-tooltip.esm.js",
+  "typings": "dist/index.d.ts",
+  "files": [
+    "dist",
+    "src"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "scripts": {
+    "preyalc": "npm version prerelease --preid=\"yalc\" --no-git-tag-version",
+    "analyze": "size-limit --why",
+    "build": "dts build",
+    "lint": "dts lint",
+    "prepare": "dts build",
+    "size": "size-limit",
+    "start": "dts watch",
+    "test": "dts test --passWithNoTests"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "dts lint"
+    }
+  },
+  "prettier": {
+    "printWidth": 80,
+    "semi": true,
+    "singleQuote": true,
+    "trailingComma": "es5"
+  },
+  "jest": {
+    "testEnvironment": "jsdom"
+  },
+  "peerDependencies": {
+    "react": ">=16"
+  },
+  "engines": {
+    "node": ">=12"
+  },
+  "size-limit": [
+    {
+      "path": "dist/react-ok-tooltip.cjs.production.min.js",
+      "limit": "10 KB"
+    },
+    {
+      "path": "dist/react-ok-tooltip.esm.js",
+      "limit": "10 KB"
+    }
+  ],
+  "devDependencies": {
+    "@size-limit/preset-small-lib": "^7.0.8",
+    "@tsconfig/create-react-app": "^1.0.2",
+    "@tsconfig/recommended": "^1.0.1",
+    "@types/react": "^17.0.39",
+    "@types/react-dom": "^17.0.13",
+    "autoprefixer": "^10.4.2",
+    "cssnano": "^5.1.1",
+    "dts-cli": "^1.4.0",
+    "husky": "^7.0.4",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
+    "rollup-plugin-postcss": "^4.0.2",
+    "sass": "^1.49.9",
+    "size-limit": "^7.0.8",
+    "tslib": "^2.3.1",
+    "typescript": "^4.6.2"
+  },
+  "dependencies": {
+    "react-tiny-popover": "^7.0.1"
+  }
+}
