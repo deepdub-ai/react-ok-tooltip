@@ -1,6 +1,6 @@
 {
   "name": "@deepdub/react-ok-tooltip",
-  "version": "0.1.2",
+  "version": "0.1.4",
   "license": "MIT",
   "author": "Eldad Bercovici",
   "main": "dist/index.js",
@@ -13,8 +13,13 @@
   "publishConfig": {
     "access": "public"
   },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/deepdub-ai/react-ok-tooltip.git"
+  },
   "scripts": {
     "preyalc": "npm version prerelease --preid=\"yalc\" --no-git-tag-version",
+    "yalc": "yalc publish",
     "analyze": "size-limit --why",
     "build": "dts build",
     "lint": "dts lint",
@@ -38,7 +43,8 @@
     "testEnvironment": "jsdom"
   },
   "peerDependencies": {
-    "react": ">=16"
+    "react": ">=16",
+    "react-dom": ">=16"
   },
   "engines": {
     "node": ">=12"
@@ -63,8 +69,6 @@
     "cssnano": "^5.1.1",
     "dts-cli": "^1.4.0",
     "husky": "^7.0.4",
-    "react": "^17.0.2",
-    "react-dom": "^17.0.2",
     "rollup-plugin-postcss": "^4.0.2",
     "sass": "^1.49.9",
     "size-limit": "^7.0.8",

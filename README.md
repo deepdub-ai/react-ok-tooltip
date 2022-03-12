@@ -30,7 +30,7 @@ import { tooltip } from '@deepdub/react-ok-tooltip';
 
 function Component() {
   return (
-    <button {...tooltip('I am a tooltip!')}>Hover me!</button>
+    <button ref={tooltip('I am a tooltip!')}>Hover me!</button>
   );
 }
 ```
@@ -74,10 +74,10 @@ import { tooltip } from '@deepdub/react-ok-tooltip';
 
 function Component() {
   return (
-    <div {...tooltipGroup()}>
-      <button {...tooltip('Cut Selection')}>Cut</button>
-      <button {...tooltip('Copy Selection')}>Copy</button>
-      <button {...tooltip('Paste')}>Paste</button>
+    <div ref={tooltipGroup()}>
+      <button ref={tooltip('Cut Selection')}>Cut</button>
+      <button ref={tooltip('Copy Selection')}>Copy</button>
+      <button ref={tooltip('Paste')}>Paste</button>
     </div>
   );
 }

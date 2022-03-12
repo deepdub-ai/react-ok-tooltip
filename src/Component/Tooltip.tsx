@@ -11,7 +11,7 @@ import {
   initTooltipMethods,
   resetTooltipMethods,
   setGlobalTooltipProps,
-} from '../tooltip';
+} from '../tooltip-methods';
 import { createCssVarsForStyleProp, cx } from './Tooltip.utils';
 import styles from './Tooltip.module.scss';
 

@@ -25,13 +25,7 @@ export function deferredShowTooltip(delay: number, showTooltip: Function) {
     return;
   }
 
-  if (state === 'await-hide') {
-    unwait();
-    state = 'visible';
-    showTooltip();
-  }
-
-  if (state === 'hidden-grace') {
+  if (state === 'await-hide' || state === 'hidden-grace') {
     unwait();
     state = 'visible';
     showTooltip();
