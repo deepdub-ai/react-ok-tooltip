@@ -9,14 +9,14 @@ React Ok Tooltip is a simple and easy to use tooltip component for React.
 Inside **App.tsx**:
 
 ```tsx
-import { Tooltip } from '@deepdub/react-ok-tooltip';
+import { OkTooltip } from '@deepdub/react-ok-tooltip';
 import '@deepdub/react-ok-tooltip/dist/tooltip.css';
 
 function App() {
   return (
     <>
       {/* insert app here... */}
-      <Tooltip arrowSize={5} />
+      <OkTooltip arrowSize={5} />
     </>
   );
 }
