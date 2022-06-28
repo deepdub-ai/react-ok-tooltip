@@ -16,16 +16,22 @@ import { createCssVarsForStyleProp, cx } from './Tooltip.utils';
 import styles from './Tooltip.module.scss';
 
 export default function Tooltip({
-  backgroundColor = 'var(--color-black)',
+  backgroundColor = '#ffffff',
+  textColor = '#000000',
+  textColorMuted = '#444444',
   borderColor = '#3a3a3a',
   arrowSize = 5,
+  maxWidth,
   delay = DEFAULT_DELAY,
   className,
   arrowClassName,
 }: {
   backgroundColor?: string;
+  textColor?: string;
+  textColorMuted?: string;
   borderColor?: string;
   arrowSize?: number;
+  maxWidth?: string;
   delay?: number;
   className?: string;
   arrowClassName?: string;
@@ -79,7 +85,8 @@ export default function Tooltip({
           return;
         }
 
-        contentRef.current.style.maxWidth = props.maxWidth ?? 'none';
+        contentRef.current.style.maxWidth =
+          props.maxWidth ?? maxWidth ?? 'none';
         titleRef.current.innerText = props.title;
         subtitleRef.current.style.display = props.subtitle ? 'block' : 'none';
         subtitleRef.current.innerText = props.subtitle ?? '';
@@ -111,9 +118,11 @@ export default function Tooltip({
         visibility: tooltipVisible ? 'visible' : 'hidden',
         ...arrowContainerStyle,
         ...createCssVarsForStyleProp({
-          '--arrow-size': `${arrowSize}px`,
-          '--background-color': backgroundColor,
-          '--border-color': borderColor,
+          '--ok-tooltip-arrow-size': `${arrowSize}px`,
+          '--ok-tooltip-background-color': backgroundColor,
+          '--ok-tooltip-border-color': borderColor,
+          '--ok-tooltip-text-color': textColor,
+          '--ok-tooltip-text-color-muted': textColorMuted,
         }),
       }}
     >

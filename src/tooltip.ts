@@ -8,6 +8,7 @@ export interface TooltipProps {
   title: string;
   subtitle?: string;
   maxWidth?: string;
+  whenOverflow?: boolean;
 }
 
 export function tooltip(
@@ -32,6 +33,14 @@ export function tooltip(
       const triggerEl = selectedGroupId
         ? tooltipGroups[selectedGroupId]
         : element;
+
+      if (
+        appTooltipProps.whenOverflow &&
+        triggerEl &&
+        triggerEl?.scrollWidth <= triggerEl?.clientWidth
+      ) {
+        return;
+      }
 
       tooltipMethods.setPopperTooltipTriggerRef?.(triggerEl);
       tooltipMethods.setAppTooltipProps?.({ title, ...appTooltipProps });

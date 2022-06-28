@@ -1,29 +1,30 @@
 .tooltipContainer {
   --border-width: 1px;
-  background-color: var(--background-color);
-  border: 1px solid var(--border-color);
+  background-color: var(--ok-tooltip-background-color);
+  border: 1px solid var(--ok-tooltip-border-color);
   padding: 0.5rem !important;
   border-width: var(--border-width);
   border-radius: 0;
   font-size: 0.6875rem;
   text-align: center;
-  color: var(--text-color-x-muted);
+  color: var(--ok-tooltip-text-color-muted);
   position: absolute;
   top: 0;
   left: 0;
   z-index: 1;
 
   .arrow {
-    top: calc(var(--arrow-size) * -1) !important;
+    top: calc(var(--ok-tooltip-arrow-size) * -1) !important;
 
     &:before {
       content: '';
       position: absolute;
-      border-left: calc(var(--arrow-size) + 2px) solid transparent;
-      border-right: calc(var(--arrow-size) + 2px) solid transparent;
-      border-bottom: calc(var(--arrow-size) + 2px) solid var(--border-color);
+      border-left: calc(var(--ok-tooltip-arrow-size) + 2px) solid transparent;
+      border-right: calc(var(--ok-tooltip-arrow-size) + 2px) solid transparent;
+      border-bottom: calc(var(--ok-tooltip-arrow-size) + 2px) solid
+        var(--ok-tooltip-border-color);
       top: -2px;
-      left: calc(var(--arrow-size) * -1 - 2px);
+      left: calc(var(--ok-tooltip-arrow-size) * -1 - 2px);
       z-index: -1;
     }
   }
@@ -38,11 +39,11 @@
     font-weight: 700;
     font-size: 0.75rem;
     display: inline-block;
-    color: var(--text-color-default);
+    color: var(--ok-tooltip-text-color);
   }
 
   .subtitle {
     line-height: 1.375;
-    color: var(--text-color-x-muted);
+    color: var(--ok-tooltip-text-color-muted);
   }
 }
