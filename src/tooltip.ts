@@ -19,7 +19,13 @@ export function tooltip(
   }: { groupId?: string | null } & Omit<TooltipProps, 'title'> = {}
 ) {
   return (element: HTMLElement | null) => {
-    function onMouseEnter(e: MouseEvent) {
+    // Once the tooltip is shown, and only while it's shown, we set an interval
+    // to check if the anchor element is in the viewport, if it's not, we remove
+    // the tooltip.
+    //
+    let unmountPollingInterval: number;
+
+    function onMouseEnter() {
       const wrappingGroupId = element!.closest<HTMLElement>(
         '[data-ok-tooltip-group-id]'
       )?.dataset.okTooltipGroupId;
@@ -46,13 +52,25 @@ export function tooltip(
       tooltipMethods.setAppTooltipProps?.({ title, ...appTooltipProps });
       tooltipMethods.popperTooltipUpdate?.();
 
-      deferredShowTooltip(globalTooltipProps.delay, () =>
-        tooltipMethods.setAppTooltipVisible?.(true)
-      );
+      deferredShowTooltip(globalTooltipProps.delay, () => {
+        tooltipMethods.setAppTooltipVisible?.(true);
+
+        unmountPollingInterval = setInterval(() => {
+          if (triggerEl?.closest('body')) {
+            return;
+          }
+
+          tooltipMethods.setAppTooltipVisible?.(false);
+          clearInterval(unmountPollingInterval);
+        }, 500) as unknown as number;
+      });
     }
 
-    function onMouseLeave(e: MouseEvent) {
-      deferredHideTooltip(() => tooltipMethods.setAppTooltipVisible?.(false));
+    function onMouseLeave() {
+      deferredHideTooltip(() => {
+        tooltipMethods.setAppTooltipVisible?.(false);
+        clearInterval(unmountPollingInterval);
+      });
     }
 
     element?.addEventListener('mouseenter', onMouseEnter);
