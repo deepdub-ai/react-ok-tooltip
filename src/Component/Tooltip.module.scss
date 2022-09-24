@@ -13,7 +13,7 @@
   left: 0;
   z-index: 1;
 
-  .arrow {
+  .arrow.bottom {
     top: calc(var(--ok-tooltip-arrow-size) * -1) !important;
 
     &:before {
@@ -24,6 +24,22 @@
       border-bottom: calc(var(--ok-tooltip-arrow-size) + 2px) solid
         var(--ok-tooltip-border-color);
       top: -2px;
+      left: calc(var(--ok-tooltip-arrow-size) * -1 - 2px);
+      z-index: -1;
+    }
+  }
+
+  .arrow.top {
+    bottom: calc(var(--ok-tooltip-arrow-size) * -1) !important;
+
+    &:before {
+      content: '';
+      position: absolute;
+      border-left: calc(var(--ok-tooltip-arrow-size) + 2px) solid transparent;
+      border-right: calc(var(--ok-tooltip-arrow-size) + 2px) solid transparent;
+      border-top: calc(var(--ok-tooltip-arrow-size) + 2px) solid
+        var(--ok-tooltip-border-color);
+      bottom: -2px;
       left: calc(var(--ok-tooltip-arrow-size) * -1 - 2px);
       z-index: -1;
     }

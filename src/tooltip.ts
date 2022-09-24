@@ -77,3 +77,29 @@ export function tooltip(
     element?.addEventListener('mouseleave', onMouseLeave);
   };
 }
+
+const absPositionTriggerEl = document.createElement('div');
+Object.assign(absPositionTriggerEl.style, {
+  position: 'fixed',
+  width: '1px',
+  height: '1px',
+});
+absPositionTriggerEl.id = 'okTooltipAbsPositionTriggerEl';
+document.body.appendChild(absPositionTriggerEl);
+
+export function showTooltip(
+  title: string,
+  x: number,
+  y: number,
+  position: 'top' | 'bottom'
+) {
+  tooltipMethods.setAppTooltipProps?.({ title, position });
+  absPositionTriggerEl.style.left = `${x}px`;
+  absPositionTriggerEl.style.top = `${y}px`;
+  tooltipMethods.setPopperTooltipTriggerRef?.(absPositionTriggerEl);
+  tooltipMethods.setAppTooltipVisible?.(true);
+}
+
+export function hideTooltip() {
+  tooltipMethods.setAppTooltipVisible?.(false);
+}

@@ -48,13 +48,14 @@ export default function Tooltip({
     nudgedLeft: 0,
     nudgedTop: 0,
     boundaryInset: 10,
+    position: 'bottom',
   });
 
   const childRef = useRef<HTMLElement>();
 
   const { positionPopover, popoverRef } = usePopover({
     childRef,
-    positions: ['bottom'],
+    positions: ['bottom', 'top'],
     align: 'center',
     padding: 10,
     reposition: true,
@@ -90,6 +91,8 @@ export default function Tooltip({
         titleRef.current.innerText = props.title;
         subtitleRef.current.style.display = props.subtitle ? 'block' : 'none';
         subtitleRef.current.innerText = props.subtitle ?? '';
+
+        positionPopover({ positionIndex: props.position === 'top' ? 1 : 0 });
       },
       setAppTooltipVisible: setTooltipVisible,
       popperTooltipUpdate: positionPopover,
@@ -126,7 +129,15 @@ export default function Tooltip({
         }),
       }}
     >
-      <div className={cx(styles.arrow, arrowClassName)} style={arrowStyle} />
+      <div
+        className={cx(
+          styles.arrow,
+          popoverState.position === 'top' ? styles.top : undefined,
+          popoverState.position === 'bottom' ? styles.bottom : undefined,
+          arrowClassName
+        )}
+        style={arrowStyle}
+      />
       <div className={styles.content} ref={contentRef}>
         <div className={styles.title} ref={titleRef}></div>
         <div className={styles.subtitle} ref={subtitleRef}></div>

@@ -4,6 +4,7 @@ export interface TooltipProps {
   title: string;
   subtitle?: string;
   maxWidth?: string;
+  position?: 'top' | 'bottom';
 }
 
 interface GlobalTooltipProps {
