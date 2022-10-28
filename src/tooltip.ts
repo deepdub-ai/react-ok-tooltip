@@ -11,6 +11,8 @@ export interface TooltipProps {
   whenOverflow?: boolean;
 }
 
+const registeredElements = new WeakSet<HTMLElement>();
+
 export function tooltip(
   title: string,
   {
@@ -19,6 +21,13 @@ export function tooltip(
   }: { groupId?: string | null } & Omit<TooltipProps, 'title'> = {}
 ) {
   return (element: HTMLElement | null) => {
+    if (element) {
+      if (registeredElements.has(element)) {
+        return;
+      }
+
+      registeredElements.add(element);
+    }
     // Once the tooltip is shown, and only while it's shown, we set an interval
     // to check if the anchor element is in the viewport, if it's not, we remove
     // the tooltip.
