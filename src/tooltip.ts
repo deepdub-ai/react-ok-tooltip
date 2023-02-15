@@ -1,15 +1,12 @@
 import { tooltipGroups } from './tooltip-groups';
 import { deferredHideTooltip, deferredShowTooltip } from './tooltip-helpers';
-import { globalTooltipProps, tooltipMethods } from './tooltip-methods';
+import {
+  globalTooltipProps,
+  tooltipMethods,
+  TooltipProps,
+} from './tooltip-methods';
 
 export const DEFAULT_DELAY = 1000;
-
-export interface TooltipProps {
-  title: string;
-  subtitle?: string;
-  maxWidth?: string;
-  whenOverflow?: boolean;
-}
 
 const registeredElements = new WeakSet<HTMLElement>();
 
@@ -32,7 +29,7 @@ export function tooltip(
     // to check if the anchor element is in the viewport, if it's not, we remove
     // the tooltip.
     //
-    let unmountPollingInterval: number;
+    let unmountPollingInterval: NodeJS.Timer;
 
     function onMouseEnter() {
       const wrappingGroupId = element!.closest<HTMLElement>(
@@ -59,7 +56,7 @@ export function tooltip(
 
       tooltipMethods.setPopperTooltipTriggerRef?.(triggerEl);
       tooltipMethods.setAppTooltipProps?.({ title, ...appTooltipProps });
-      tooltipMethods.popperTooltipUpdate?.();
+      tooltipMethods.popperTooltipUpdate?.(appTooltipProps.position);
 
       deferredShowTooltip(globalTooltipProps.delay, () => {
         tooltipMethods.setAppTooltipVisible?.(true);
@@ -71,7 +68,7 @@ export function tooltip(
 
           tooltipMethods.setAppTooltipVisible?.(false);
           clearInterval(unmountPollingInterval);
-        }, 500) as unknown as number;
+        }, 500);
       });
     }
 

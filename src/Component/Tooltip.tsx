@@ -95,7 +95,9 @@ export default function Tooltip({
         positionPopover({ positionIndex: props.position === 'top' ? 1 : 0 });
       },
       setAppTooltipVisible: setTooltipVisible,
-      popperTooltipUpdate: positionPopover,
+      popperTooltipUpdate: (position) => {
+        positionPopover({ positionIndex: position === 'top' ? 1 : 0 });
+      },
     });
 
     return () => {

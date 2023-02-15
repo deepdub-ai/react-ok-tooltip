@@ -1,10 +1,12 @@
 export const DEFAULT_DELAY = 1000;
 
+export type TooltipPosition = 'top' | 'bottom';
 export interface TooltipProps {
   title: string;
   subtitle?: string;
   maxWidth?: string;
-  position?: 'top' | 'bottom';
+  position?: TooltipPosition;
+  whenOverflow?: boolean;
 }
 
 interface GlobalTooltipProps {
@@ -15,7 +17,7 @@ interface TooltipMethods {
   setPopperTooltipTriggerRef?: (element: HTMLElement | null) => void;
   setAppTooltipProps?: (props: TooltipProps | undefined) => void;
   setAppTooltipVisible?: (visible: boolean) => void;
-  popperTooltipUpdate?: Function | null;
+  popperTooltipUpdate?: (position?: TooltipPosition) => void | null;
 }
 
 export const tooltipMethods: TooltipMethods = {};
