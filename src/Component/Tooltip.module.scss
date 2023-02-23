@@ -61,5 +61,6 @@
   .subtitle {
     line-height: 1.375;
     color: var(--ok-tooltip-text-color-muted);
+    overflow: hidden;
   }
 }
