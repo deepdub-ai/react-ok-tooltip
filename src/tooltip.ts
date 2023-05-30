@@ -61,6 +61,8 @@ export function tooltip(
       deferredShowTooltip(globalTooltipProps.delay, () => {
         tooltipMethods.setAppTooltipVisible?.(true);
 
+        clearInterval(unmountPollingInterval);
+
         unmountPollingInterval = setInterval(() => {
           if (triggerEl?.closest('body')) {
             return;
