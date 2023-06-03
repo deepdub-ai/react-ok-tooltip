@@ -81,8 +81,15 @@ export function tooltip(
       });
     }
 
+    function onMouseDown() {
+      deferredHideTooltip();
+      tooltipMethods.setAppTooltipVisible?.(false);
+      clearInterval(unmountPollingInterval);
+    }
+
     element?.addEventListener('mouseenter', onMouseEnter);
     element?.addEventListener('mouseleave', onMouseLeave);
+    element?.addEventListener('mousedown', onMouseDown);
   };
 }
 

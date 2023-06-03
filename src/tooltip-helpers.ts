@@ -41,7 +41,7 @@ export function deferredShowTooltip(delay: number, showTooltip: Function) {
   }
 }
 
-export function deferredHideTooltip(hideTooltip: Function) {
+export function deferredHideTooltip(hideTooltip?: Function) {
   if (state === 'await-show') {
     unwait();
     state = 'hidden';
@@ -50,7 +50,7 @@ export function deferredHideTooltip(hideTooltip: Function) {
   if (state === 'visible') {
     state = 'await-hide';
     wait(() => {
-      hideTooltip();
+      hideTooltip?.();
       state = 'hidden-grace';
       wait(() => {
         state = 'hidden';
