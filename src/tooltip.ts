@@ -1,3 +1,4 @@
+import { useEffect, useRef } from 'react';
 import { tooltipGroups } from './tooltip-groups';
 import { deferredHideTooltip, deferredShowTooltip } from './tooltip-helpers';
 import {
@@ -14,9 +15,16 @@ export function tooltip(
   title: string,
   {
     groupId,
+    hide,
     ...appTooltipProps
   }: { groupId?: string | null } & Omit<TooltipProps, 'title'> = {}
 ) {
+  const isHidden = useRef(hide ?? false);
+
+  useEffect(() => {
+    isHidden.current = !!hide;
+  }, [hide]);
+
   return (element: HTMLElement | null) => {
     if (element) {
       if (registeredElements.has(element)) {
@@ -32,6 +40,10 @@ export function tooltip(
     let unmountPollingInterval: NodeJS.Timer;
 
     function onMouseEnter() {
+      if (isHidden.current) {
+        return;
+      }
+
       const wrappingGroupId = element!.closest<HTMLElement>(
         '[data-ok-tooltip-group-id]'
       )?.dataset.okTooltipGroupId;

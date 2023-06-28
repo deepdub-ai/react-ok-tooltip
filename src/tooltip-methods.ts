@@ -7,6 +7,7 @@ export interface TooltipProps {
   maxWidth?: string;
   position?: TooltipPosition;
   whenOverflow?: boolean;
+  hide?: boolean;
 }
 
 interface GlobalTooltipProps {
