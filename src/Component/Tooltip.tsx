@@ -1,17 +1,8 @@
 import React, { useEffect, useRef, useState } from 'react';
 import ReactDOM from 'react-dom';
-import {
-  useArrowContainer,
-  usePopover,
-  PopoverState,
-} from 'react-tiny-popover';
+import { useArrowContainer, usePopover, PopoverState } from 'react-tiny-popover';
 import { useSingleton } from './use-singleton';
-import {
-  DEFAULT_DELAY,
-  initTooltipMethods,
-  resetTooltipMethods,
-  setGlobalTooltipProps,
-} from '../tooltip-methods';
+import { DEFAULT_DELAY, initTooltipMethods, resetTooltipMethods, setGlobalTooltipProps } from '../tooltip-methods';
 import { createCssVarsForStyleProp, cx } from './Tooltip.utils';
 import styles from './Tooltip.module.scss';
 
@@ -37,6 +28,12 @@ export default function Tooltip({
   arrowClassName?: string;
 } = {}) {
   useSingleton('tooltip');
+
+  const contentRef = useRef<HTMLDivElement>(null);
+  const titleRef = useRef<HTMLDivElement>(null);
+  const subtitleRef = useRef<HTMLDivElement>(null);
+  const videoRef = useRef<HTMLVideoElement>(null);
+  const [arrowColor, setArrowColor] = useState(backgroundColor);
 
   const [tooltipVisible, setTooltipVisible] = useState(false);
   const [popoverState, setPopoverState] = useState<PopoverState>({
@@ -67,7 +64,7 @@ export default function Tooltip({
 
   const { arrowContainerStyle, arrowStyle } = useArrowContainer({
     ...popoverState,
-    arrowColor: backgroundColor,
+    arrowColor: arrowColor,
     arrowSize: arrowSize,
   });
 
@@ -77,20 +74,31 @@ export default function Tooltip({
         childRef.current = ref ?? undefined;
       },
       setAppTooltipProps: (props) => {
-        if (
-          !props ||
-          !contentRef.current ||
-          !titleRef.current ||
-          !subtitleRef.current
-        ) {
+        if (!props || !contentRef.current || !titleRef.current || !subtitleRef.current || !videoRef.current) {
           return;
         }
 
-        contentRef.current.style.maxWidth =
-          props.maxWidth ?? maxWidth ?? 'none';
+        if (props.video) {
+          popoverRef.current.classList.add(styles.hasVideo);
+          setArrowColor('var(--color-white)');
+        } else {
+          popoverRef.current.classList.remove(styles.hasVideo);
+          setArrowColor(backgroundColor);
+        }
+
+        contentRef.current.style.maxWidth = props.maxWidth ?? maxWidth ?? 'none';
+
         titleRef.current.innerText = props.title;
+
         subtitleRef.current.style.display = props.subtitle ? 'block' : 'none';
         subtitleRef.current.innerText = props.subtitle ?? '';
+
+        if (props.video) {
+          videoRef.current.src = props.video;
+          videoRef.current.style.display = '';
+        } else {
+          videoRef.current.style.display = 'none';
+        }
 
         positionPopover({ positionIndex: props.position === 'top' ? 1 : 0 });
       },
@@ -110,10 +118,6 @@ export default function Tooltip({
       delay: delay,
     });
   }, [delay]);
-
-  const contentRef = useRef<HTMLDivElement>(null);
-  const titleRef = useRef<HTMLDivElement>(null);
-  const subtitleRef = useRef<HTMLDivElement>(null);
 
   return ReactDOM.createPortal(
     <div
@@ -143,6 +147,7 @@ export default function Tooltip({
       <div className={styles.content} ref={contentRef}>
         <div className={styles.title} ref={titleRef}></div>
         <div className={styles.subtitle} ref={subtitleRef}></div>
+        <video className={styles.video} ref={videoRef} autoPlay loop></video>
       </div>
     </div>,
     document.body

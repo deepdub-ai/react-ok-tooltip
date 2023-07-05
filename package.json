@@ -1,6 +1,6 @@
 {
   "name": "@deepdub/react-ok-tooltip",
-  "version": "0.1.15",
+  "version": "0.1.16",
   "license": "MIT",
   "author": "Eldad Bercovici",
   "main": "dist/index.js",
@@ -34,7 +34,7 @@
     }
   },
   "prettier": {
-    "printWidth": 80,
+    "printWidth": 120,
     "semi": true,
     "singleQuote": true,
     "trailingComma": "es5"

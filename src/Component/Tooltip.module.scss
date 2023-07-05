@@ -21,8 +21,7 @@
       position: absolute;
       border-left: calc(var(--ok-tooltip-arrow-size) + 2px) solid transparent;
       border-right: calc(var(--ok-tooltip-arrow-size) + 2px) solid transparent;
-      border-bottom: calc(var(--ok-tooltip-arrow-size) + 2px) solid
-        var(--ok-tooltip-border-color);
+      border-bottom: calc(var(--ok-tooltip-arrow-size) + 2px) solid var(--ok-tooltip-border-color);
       top: -2px;
       left: calc(var(--ok-tooltip-arrow-size) * -1 - 2px);
       z-index: -1;
@@ -37,8 +36,7 @@
       position: absolute;
       border-left: calc(var(--ok-tooltip-arrow-size) + 2px) solid transparent;
       border-right: calc(var(--ok-tooltip-arrow-size) + 2px) solid transparent;
-      border-top: calc(var(--ok-tooltip-arrow-size) + 2px) solid
-        var(--ok-tooltip-border-color);
+      border-top: calc(var(--ok-tooltip-arrow-size) + 2px) solid var(--ok-tooltip-border-color);
       bottom: -2px;
       left: calc(var(--ok-tooltip-arrow-size) * -1 - 2px);
       z-index: -1;
@@ -62,5 +60,28 @@
     line-height: 1.375;
     color: var(--ok-tooltip-text-color-muted);
     overflow: hidden;
+  }
+
+  &.hasVideo {
+    background-color: var(--color-white);
+    padding: 0.25rem !important;
+    width: 182px;
+    text-align: left;
+
+    .title {
+      color: var(--text-color-xxxx-muted);
+    }
+
+    .subtitle {
+      color: var(--text-color-xxx-muted);
+    }
+  }
+
+  .video {
+    width: 180px;
+    aspect-ratio: 16 / 9;
+    margin: 0 -0.25rem -0.25rem;
+    object-fit: cover;
+    background-color: var(--color-black);
   }
 }
