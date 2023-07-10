@@ -147,7 +147,7 @@ export default function Tooltip({
       <div className={styles.content} ref={contentRef}>
         <div className={styles.title} ref={titleRef}></div>
         <div className={styles.subtitle} ref={subtitleRef}></div>
-        <video className={styles.video} ref={videoRef} autoPlay loop></video>
+        <video className={styles.video} ref={videoRef} muted autoPlay loop></video>
       </div>
     </div>,
     document.body
