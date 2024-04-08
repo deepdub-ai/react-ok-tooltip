@@ -114,8 +114,8 @@ Object.assign(absPositionTriggerEl.style, {
 absPositionTriggerEl.id = 'okTooltipAbsPositionTriggerEl';
 document.body.appendChild(absPositionTriggerEl);
 
-export function showTooltip(title: string, x: number, y: number, position: 'top' | 'bottom') {
-  tooltipMethods.setAppTooltipProps?.({ title, position });
+export function showTooltip(title: string, x: number, y: number, props: Omit<TooltipProps, 'title'>) {
+  tooltipMethods.setAppTooltipProps?.({ title, ...props });
   absPositionTriggerEl.style.left = `${x}px`;
   absPositionTriggerEl.style.top = `${y}px`;
   tooltipMethods.setPopperTooltipTriggerRef?.(absPositionTriggerEl);
