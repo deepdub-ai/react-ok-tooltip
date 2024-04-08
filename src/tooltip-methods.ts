@@ -8,6 +8,8 @@ export interface TooltipProps {
   position?: TooltipPosition;
   whenOverflow?: boolean;
   video?: string;
+  backgroundColor?: string;
+  borderColor?: string;
 }
 
 interface GlobalTooltipProps {

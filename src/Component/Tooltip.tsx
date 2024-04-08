@@ -7,10 +7,10 @@ import { createCssVarsForStyleProp, cx } from './Tooltip.utils';
 import styles from './Tooltip.module.scss';
 
 export default function Tooltip({
-  backgroundColor = '#ffffff',
+  backgroundColor: backgroundColorBase = '#ffffff',
+  borderColor: borderColorBase = '#3a3a3a',
   textColor = '#000000',
   textColorMuted = '#444444',
-  borderColor = '#3a3a3a',
   arrowSize = 5,
   maxWidth,
   delay = DEFAULT_DELAY,
@@ -18,9 +18,9 @@ export default function Tooltip({
   arrowClassName,
 }: {
   backgroundColor?: string;
+  borderColor?: string;
   textColor?: string;
   textColorMuted?: string;
-  borderColor?: string;
   arrowSize?: number;
   maxWidth?: string;
   delay?: number;
@@ -29,6 +29,8 @@ export default function Tooltip({
 } = {}) {
   useSingleton('tooltip');
 
+  const [backgroundColor, setBackgroundColor] = useState(backgroundColorBase);
+  const [borderColor, setBorderColor] = useState(borderColorBase);
   const contentRef = useRef<HTMLDivElement>(null);
   const titleRef = useRef<HTMLDivElement>(null);
   const subtitleRef = useRef<HTMLDivElement>(null);
@@ -86,6 +88,14 @@ export default function Tooltip({
           setArrowColor(backgroundColor);
         }
 
+        if (props.backgroundColor) {
+          setBackgroundColor(props.backgroundColor);
+        }
+
+        if (props.borderColor) {
+          setBorderColor(props.borderColor);
+        }
+
         contentRef.current.style.maxWidth = props.maxWidth ?? maxWidth ?? 'none';
 
         titleRef.current.innerText = props.title;
@@ -102,7 +112,14 @@ export default function Tooltip({
 
         positionPopover({ positionIndex: props.position === 'top' ? 1 : 0 });
       },
-      setAppTooltipVisible: setTooltipVisible,
+      setAppTooltipVisible: (visible) => {
+        setTooltipVisible(visible);
+
+        if (!visible) {
+          setBackgroundColor(backgroundColorBase);
+          setBorderColor(borderColorBase);
+        }
+      },
       popperTooltipUpdate: (position) => {
         positionPopover({ positionIndex: position === 'top' ? 1 : 0 });
       },
@@ -111,7 +128,7 @@ export default function Tooltip({
     return () => {
       resetTooltipMethods();
     };
-  }, [positionPopover]);
+  }, [positionPopover, backgroundColorBase, borderColorBase]);
 
   useEffect(() => {
     setGlobalTooltipProps({

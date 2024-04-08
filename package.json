@@ -1,6 +1,6 @@
 {
   "name": "@deepdub/react-ok-tooltip",
-  "version": "0.1.18",
+  "version": "0.1.19",
   "license": "MIT",
   "author": "Eldad Bercovici",
   "main": "dist/index.js",
